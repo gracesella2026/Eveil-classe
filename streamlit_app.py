@@ -1252,3 +1252,14 @@ with tab_teacher:
         <p style="margin: 0; color: #16A085; font-size: 1rem;">💡 <b>טיפ לשימוש באפליקציה המקוונת:</b> הנתונים באפליקציה זו נשמרים באופן זמני ומקומי בדפדפן המכשיר (Session State). אם התלמיד יסגור את הלשונית, היומן שלו יתאפס. זכרו להזכיר לו לייצא ולהוריד את היומן בסוף השיעור אם ברצונכם להעריך את עבודתו!</p>
     </div>
 </div>"""), unsafe_allow_html=True)
+
+
+# --- FOOTER DISCRET / חתימה דיסקרטית ---
+st.markdown("<div style='margin-top: 50px;'></div>", unsafe_allow_html=True)
+st.markdown("---")
+st.markdown(clean_html("""
+<div style="text-align: center; color: #BDC3C7; font-size: 0.85rem; margin-top: 10px; font-family: 'Quicksand', sans-serif;">
+    Application créée avec ❤️ par <b>Grace Sella</b> • Septembre 2026<br>
+    <span style="direction: rtl; display: inline-block;">אפליקציה זו נוצרה באהבה על ידי <b>גרייס סלה</b> • ספטמבר 2026</span>
+</div>
+"""), unsafe_allow_html=True)

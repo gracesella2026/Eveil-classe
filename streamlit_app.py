@@ -1259,7 +1259,7 @@ st.markdown("<div style='margin-top: 50px;'></div>", unsafe_allow_html=True)
 st.markdown("---")
 st.markdown(clean_html("""
 <div style="text-align: center; color: #BDC3C7; font-size: 0.85rem; margin-top: 10px; font-family: 'Quicksand', sans-serif;">
-    Application créée avec ❤️ par <b>Grace Sella</b> • Septembre 2026<br>
-    <span style="direction: rtl; display: inline-block;">אפליקציה זו נוצרה באהבה על ידי <b>גרייס סלה</b> • ספטמבר 2026</span>
+    Application créée par <b>Grace Sella</b> • Septembre 2026<br>
+    <span style="direction: rtl; display: inline-block;">אפליקציה זו נוצרה על ידי <b>גרייס סלע</b> • ספטמבר 2026</span>
 </div>
 """), unsafe_allow_html=True)

@@ -1193,23 +1193,62 @@ with tab_journal:
 
 # --- ONGLETS 5 : ESPACE ENSEIGNANT ---
 with tab_teacher:
-    st.markdown("### 🏫 Mode d'emploi et Usages Pédagogiques\n### מדריך למורה ושימושים פדגוגיים")
-    st.write("Chers enseignants, voici comment tirer le meilleur parti de cette application interactive avec vos élèves :\n\nמורים יקרים, להלן דרכים להפיק את המרב מהאפליקציה האינטראקטיבית avec התלמידים:")
+    st.markdown("### 🏫 Espace Enseignant / מרחב מורה")
     
-    st.markdown(clean_html("""
-    #### 1. Le Rituel du Matin (Collectif) / ריטואל בוקר כיתתי (קבוצתי)
-    * **Comment faire ? / כיצד עושים זאת?** Projetez l'application au tableau (TBI / VPI) à l'arrivée des élèves. / הקרינו את האפליקציה על הלוח עם הגעת התלמידים.
-    * **Le jeu : / המשחק:** Allez sur l'onglet **Roue de l'Éveil**, faites tourner la roue magique devant la classe pour décider du thème. / היכנסו ללשונית "גלגל ההתעוררות", סובבו את הגלגל הקסום מול הכיתה כדי לקבוע את הנושא.
-    * **L'échange : / השיח והשיתוף:** Tirez la carte associée et lisez-la ensemble. Laissez les élèves s'exprimer oralement sur le défi proposé pendant 5 minutes. C'est une excellente activité de transition pour démarrer la journée dans le calme et la positivité. / משכו את הקלף המתאים וקראו אותו יחד. אפשרו לתלמידים להתבטא בעל פה לגבי האתגר המוצע במשך 5 דקות. זוהי פעילות מעבר מצוינת להתחיל את היום ברוגע ובחיוביות.
+    # Sub-tabs for French and Hebrew instructions
+    tab_teach_fr, tab_teach_he = st.tabs([
+        "🇫🇷 Guide Enseignant (Français)",
+        "🇮🇱 מדריך למורה (עברית)"
+    ])
     
-    #### 2. Travail en Autonomie (Individuel sur Tablette/iPad) / עבודה עצמאית (אישית על טאבלט/אייפד)
-    * **Comment faire ? / כיצד עושים זאת?** Créez un QR code menant au lien de l'application et affichez-le en classe. / צרו קוד QR המוביל לקישור של האפליקציה והציגו אותו בכיתה.
-    * **Le jeu : / המשחק:** Les élèves l'utilisent individuellement pendant les temps d'autonomie, après avoir fini un travail, ou lors d'ateliers d'Éducation Socioculturelle (EMC). / התלמידים משתמשים בה באופן אישי בזמני עבודה עצמאית, לאחר סיום משימה, או במהלך סדנאות חינוך חברתי.
-    * **Le suivi : / המעקב והמשך העבודה:** À la fin de la semaine, demandez-leur de télécharger leur fichier journal (via l'onglet **Mon Journal d'Éveil**) et de vous le partager sur votre espace de travail habituel (ENT, Classroom, messagerie de classe) ou de l'imprimer pour enrichir leur portfolio de développement personnel. / בסוף השבוע, בקשו מהם להוריד את קובץ היומן שלהם (דרך לשונית "יומן אישי") ולשתף אותו איתכם במרחב הלמידה הרגיל (ENT, Classroom, הודעות כיתתיות) או להדפיס אותו כדי להעשיר את תיק העבודות (פורטפוליו) האישי שלהם.
+    with tab_teach_fr:
+        st.markdown("### 🏫 Mode d'emploi et Usages Pédagogiques")
+        st.write("Chers enseignants, voici comment tirer le meilleur parti de cette application interactive avec vos élèves :")
+        
+        st.markdown(clean_html("""
+#### 1. Le Rituel du Matin (Collectif)
+* **Comment faire ?** Projetez l'application au tableau (TBI / VPI) à l'arrivée des élèves.
+* **Le jeu :** Allez sur l'onglet **Roue de l'Éveil**, faites tourner la roue magique devant la classe pour décider du thème. 
+* **L'échange :** Tirez la carte associée et lisez-la ensemble. Laissez les élèves s'exprimer oralement sur le défi proposé pendant 5 minutes. C'est une excellente activité de transition pour démarrer la journée dans le calme et la positivité.
+
+#### 2. Travail en Autonomie (Individuel sur Tablette/iPad)
+* **Comment faire ?** Créez un QR code menant au lien de l'application et affichez-le en classe.
+* **Le jeu :** Les élèves l'utilisent individuellement pendant les temps d'autonomie, après avoir fini un travail, ou lors d'ateliers d'Éducation Socioculturelle (EMC).
+* **Le suivi :** À la fin de la semaine, demandez-leur de télécharger leur fichier journal (via l'onglet **Mon Journal d'Éveil**) et de vous le partager sur votre espace de travail habituel (ENT, Classroom, messagerie de classe) ou de l'imprimer pour enrichir leur portfolio de développement personnel.
+
+#### 3. Débats Philosophiques et Ateliers de Langage
+* **Comment faire ?** Utilisez les thèmes et citations comme inducteurs d'écriture ou de débats.
+* **Exemple d'exercice :** Choisissez une carte difficile, par exemple le N°43 : *« Voir le positif ne veut pas dire ignorer le difficile »*. Demandez aux élèves d'écrire leur réponse à ce défi directement dans l'application, puis organisez un cercle de parole en classe pour confronter les idées.
+"""), unsafe_allow_html=True)
+        
+        st.info("💡 **Conseil d'utilisation de la version en ligne :** Les données de cette application sont stockées localement dans le navigateur de l'appareil (Session State). Si l'élève ferme l'onglet, son journal se réinitialise. Pensez à lui rappeler d'exporter son journal à la fin d'une séance de travail si vous souhaitez l'évaluer !")
+        
+    with tab_teach_he:
+        st.markdown(clean_html("""<div style="direction: rtl; text-align: right; font-family: sans-serif;">
+    <h3 style="font-family: 'Fredoka One', cursive; color: #4A90E2; margin-top: 0;">🏫 מדריך למורה ושימושים פדגוגיים</h3>
+    <p style="font-size: 1.1rem; color: #2C3E50; margin-bottom: 20px;">מורים יקרים, להלן דרכים להפיק את המרב מהאפליקציה האינטראקטיבית עם התלמידים שלכם:</p>
     
-    #### 3. Débats Philosophiques et Ateliers de Langage / דיונים פילוסופיים וסדנאות שפה
-    * **Comment faire ? / כיצד עושים זאת?** Utilisez les thèmes et citations comme inducteurs d'écriture ou de débats. / השתמשו בנושאים ובציטוטים כטריגרים לכתיבה או לדיון.
-    * **Exemple d'exercice : / דוגמה לתרגיל:** Choisissez une carte difficile, par exemple le N°43 : *« Voir le positif ne veut pas dire ignorer le difficile »*. Demandez aux élèves d'écrire leur réponse à ce défi directement dans l'application, puis organizez un cercle de parole en classe pour confronter les idées. / בחרו קלף מורכב, למשל מס' 43: "לראות את הצד החיובי לא אומר להתעלם מהקושי". בקשו מהתלמידים לכתוב את תשובתם לאתגר זה ישירות באפליקציה, ולאחר מכן ארגנו מעגל שיח בכיתה כדי להשוות ולשתף רעיונות.
-    """), unsafe_allow_html=True)
+    <h4 style="color: #27AE60; margin-top: 25px;">1. ריטואל בוקר כיתתי (קבוצתי)</h4>
+    <ul>
+        <li><b>כיצד עושים זאת?</b> הקרינו את האפליקציה על הלוח (לוח חכם או מקרן) עם הגעת התלמידים לכיתה.</li>
+        <li><b>המשחק:</b> היכנסו ללשונית "גלגל ההתעוררות" (La Roue de l'Éveil), סובבו את הגלגל הקסום מול הכיתה כדי לקבוע את הנושא היומי.</li>
+        <li><b>השיח והשיתוף:</b> משכו את הקלף המתאים וקראו אותו יחד. אפשרו לתלמידים להתבטא בעל פה לגבי האתגר המוצע במשך 5 דקות. זוהי פעילות מעבר מצוינת להתחיל את היום ברוגע ובאווירה חיובית.</li>
+    </ul>
     
-    st.info("💡 **Conseil d'utilisation : / טיפ לשימוש באפליקציה המקוונת:** Les données de cette application sont stockées localement dans le navigateur de l'appareil (Session State). Si l'élève ferme l'onglet, son journal se réinitialise. Pensez à lui rappeler d'exporter son journal à la fin d'une séance de travail si vous souhaitez l'évaluer ! / הנתונים באפליקציה זו נשמרים באופן מקומי בדפדפן המכשיר. אם התלמיד יסגור את הלשונית, היומן שלו יתאפס. זכרו להזכיר לו לייצא את היומן בסוף השיעור אם ברצונכם להעריך את עבודתו!")
+    <h4 style="color: #E67E22; margin-top: 25px;">2. עבודה עצמאית (אישית על טאבלט/אייפד)</h4>
+    <ul>
+        <li><b>כיצד עושים זאת?</b> צרו קוד QR המוביל לקישור של האפליקציה שלכם והציגו אותו בכיתה.</li>
+        <li><b>המשחק:</b> התלמידים משתמשים באפליקציה באופן אישי בזמני עבודה עצמאית, לאחר סיום משימה, או במהלך פעילויות חינוך חברתי.</li>
+        <li><b>המעקב והמשך העבודה:</b> בסוף השבוע, בקשו מהם להוריד את קובץ היומן שלהם (דרך לשונית "יומן אישי" - Mon Journal) ולשתף אותו איתכם במרחב הלמידה הכיתתי הרגיל שלכם (מייל, קלאסרום, פורטל כיתתי) או להדפיס אותו כדי להעשיר את תיק העבודות (פורטפוליו) האישי שלהם.</li>
+    </ul>
+    
+    <h4 style="color: #8E44AD; margin-top: 25px;">3. דיונים פילוסופיים וסדנאות שפה</h4>
+    <ul>
+        <li><b>כיצד עושים זאת?</b> השתמשו בנושאים ובציטוטים השונים כטריגרים לכתיבה יוצרת או לדיון פילוסופי קבוצתי.</li>
+        <li><b>דוגמה לתרגיל:</b> בחרו קלף מורכב, למשל מס' 43: <i>"לראות את הצד החיובי לא אומר להתעלם מהקושי"</i>. בקשו מהתלמידים לכתוב את תשובתם לאתגר זה ישירות באפליקציה, ולאחר מכן ארגנו מעגל שיח בכיתה כדי להשוות ולשתף את הרעיונות של כולם.</li>
+    </ul>
+    
+    <div style="background-color: #E8F8F5; border-right: 5px solid #2ECC71; border-radius: 8px; padding: 15px; margin-top: 30px;">
+        <p style="margin: 0; color: #16A085; font-size: 1rem;">💡 <b>טיפ לשימוש באפליקציה המקוונת:</b> הנתונים באפליקציה זו נשמרים באופן זמני ומקומי בדפדפן המכשיר (Session State). אם התלמיד יסגור את הלשונית, היומן שלו יתאפס. זכרו להזכיר לו לייצא ולהוריד את היומן בסוף השיעור אם ברצונכם להעריך את עבודתו!</p>
+    </div>
+</div>"""), unsafe_allow_html=True)

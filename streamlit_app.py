@@ -5,6 +5,12 @@ import time
 import datetime
 import json
 
+def clean_html(html_str):
+    if not html_str:
+        return ""
+    return "\n".join(line.strip() for line in html_str.split("\n"))
+
+
 # Configuration de la page
 st.set_page_config(
     page_title="L'Éveil en Classe - Jeu Interactif",
@@ -832,20 +838,20 @@ if st.session_state.current_card:
         if not st.session_state.reveal_quote:
             quote_display_html = f'<div class="card-text">« {card["quote"]} »</div>'
         else:
-            quote_display_html = f'''
+            quote_display_html = clean_html(f'''
             <div class="card-text">« {card["quote"]} »</div>
             <div class="card-text-hebrew">"{card["quote_he"]}"</div>
-            '''
+            ''')
     else:  # Hébreu d'abord
         if not st.session_state.reveal_quote:
             quote_display_html = f'<div class="card-text-hebrew">"{card["quote_he"]}"</div>'
         else:
-            quote_display_html = f'''
+            quote_display_html = clean_html(f'''
             <div class="card-text">« {card["quote"]} »</div>
             <div class="card-text-hebrew">"{card["quote_he"]}"</div>
-            '''
+            ''')
 
-    st.markdown(f"""
+    st.markdown(clean_html(f"""
     <div class="card-container" style="border: 4px solid {info['color']}; background-color: {info['bg_light']};">
         <span class="card-header-badge" style="background-color: {info['color']}; color: white;">
             {info['icon']} {card['theme']}
@@ -855,7 +861,7 @@ if st.session_state.current_card:
             Carte inspirante N°{card['num']} sur 60 / קלף השראה מס' {card['num']} מתוך 60
         </div>
     </div>
-    """, unsafe_allow_html=True)
+    """), unsafe_allow_html=True)
     
     # Bouton interactif pour retourner le message de la carte
     if learning_mode == "🇫🇷 Français d'abord / צרפתית תחילה":
@@ -916,34 +922,34 @@ if st.session_state.current_card:
     # Boîte d'affichage du défi sélectionné (bilingue adaptatif)
     if learning_mode == "🇫🇷 Français d'abord / צרפתית תחילה":
         if not st.session_state.reveal_challenge:
-            challenge_display_html = f'''
+            challenge_display_html = clean_html(f'''
             <h4 style="margin: 0 0 10px 0; color: {info['color']}; font-family: 'Fredoka One', cursive;">🔥 {selected_type_fr} :</h4>
             <p style="margin: 0; font-size: 1.15rem; color: #2C3E50; font-weight: bold;">{selected_challenge_fr}</p>
-            '''
+            ''')
         else:
-            challenge_display_html = f'''
+            challenge_display_html = clean_html(f'''
             <h4 style="margin: 0 0 10px 0; color: {info['color']}; font-family: 'Fredoka One', cursive;">🔥 {selected_type} :</h4>
             <p style="margin: 0 0 12px 0; font-size: 1.15rem; color: #2C3E50; font-weight: bold;">{selected_challenge_fr}</p>
             <p style="margin: 0; font-size: 1.15rem; color: #34495E; font-weight: bold; direction: rtl; text-align: right;">{selected_challenge_he}</p>
-            '''
+            ''')
     else:  # Hébreu d'abord
         if not st.session_state.reveal_challenge:
-            challenge_display_html = f'''
+            challenge_display_html = clean_html(f'''
             <h4 style="margin: 0 0 10px 0; color: {info['color']}; font-family: 'Fredoka One', cursive; direction: rtl; text-align: right;">🔥 {selected_type_he} :</h4>
             <p style="margin: 0; font-size: 1.15rem; color: #34495E; font-weight: bold; direction: rtl; text-align: right;">{selected_challenge_he}</p>
-            '''
+            ''')
         else:
-            challenge_display_html = f'''
+            challenge_display_html = clean_html(f'''
             <h4 style="margin: 0 0 10px 0; color: {info['color']}; font-family: 'Fredoka One', cursive;">🔥 {selected_type} :</h4>
             <p style="margin: 0 0 12px 0; font-size: 1.15rem; color: #2C3E50; font-weight: bold;">{selected_challenge_fr}</p>
             <p style="margin: 0; font-size: 1.15rem; color: #34495E; font-weight: bold; direction: rtl; text-align: right;">{selected_challenge_he}</p>
-            '''
+            ''')
 
-    st.markdown(f"""
+    st.markdown(clean_html(f"""
     <div class="challenge-box" style="border-left: 5px solid {info['color']};">
         {challenge_display_html}
     </div>
-    """, unsafe_allow_html=True)
+    """), unsafe_allow_html=True)
     
     # Bouton interactif pour retourner le défi
     if learning_mode == "🇫🇷 Français d'abord / צרפתית תחילה":
@@ -1109,24 +1115,24 @@ with tab_badges:
     for theme_name, info in THEMES_INFO.items():
         is_unlocked = theme_name in st.session_state.unlocked_badges
         if is_unlocked:
-            badge_html += f"""
+            badge_html += clean_html(f"""
             <div class="badge-card badge-active">
                 <div class="badge-icon">{info['icon']}</div>
                 <div class="badge-title" style="color: {info['color']};">{info['badge_name']}</div>
                 <div style="font-size: 0.75rem; color: #7F8C8D; margin-top: 5px;">{info['badge_desc']}</div>
                 <div style="font-size: 0.7rem; font-weight: bold; color: #2ECC71; margin-top: 5px;">Débloqué / פתוח !</div>
             </div>
-            """
+            """)
         else:
-            badge_html += f"""
+            badge_html += clean_html(f"""
             <div class="badge-card" style="opacity: 0.5;">
                 <div class="badge-icon" style="filter: grayscale(100%);">🔒</div>
                 <div class="badge-title" style="color: #7F8C8D;">{theme_name}</div>
                 <div style="font-size: 0.75rem; color: #BDC3C7; margin-top: 5px;">Fais un défi de ce thème pour l'ouvrir. / בצע אתגר בנושא זה כדי לפתוח.</div>
             </div>
-            """
+            """)
     badge_html += "</div>"
-    st.markdown(badge_html, unsafe_allow_html=True)
+    st.markdown(clean_html(badge_html), unsafe_allow_html=True)
 
 # --- ONGLETS 4 : MON JOURNAL D'ÉVEIL ---
 with tab_journal:
@@ -1139,7 +1145,7 @@ with tab_journal:
         # Affichage chronologique inversé (les plus récents en premier)
         for i, entry in enumerate(reversed(st.session_state.journal)):
             info = THEMES_INFO[entry["theme"]]
-            st.markdown(f"""
+            st.markdown(clean_html(f"""
             <div style="background-color: #FFFFFF; border-radius: 15px; padding: 20px; border-left: 6px solid {info['color']}; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.03);">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
                     <span style="font-weight: bold; color: {info['color']}; font-size: 1rem;">{info['icon']} {entry['theme']} - Carte N°{entry['num']}</span>
@@ -1157,7 +1163,7 @@ with tab_journal:
                     <p style="margin: 5px 0 0 0; color: #34495E; font-size: 1.05rem; white-space: pre-wrap;">{entry['reflection']}</p>
                 </div>
             </div>
-            """, unsafe_allow_html=True)
+            """), unsafe_allow_html=True)
         
         # Option d'exportation du journal
         st.write("---")

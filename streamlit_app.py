@@ -761,6 +761,36 @@ CARDS_DATA = [
         "challenge_1_he": "כתוב פעולה של סולידריות קבוצתית שאתה מתחייב לעשות כדי שהכיתה שלך תישאר נקייה, מגובשת וחמה.",
         "challenge_2_fr": "Fais un geste d'engagement physique en signant symboliquement le pacte d'engagement de la classe avec tes camarades de table.",
         "challenge_2_he": "עשה מחווה פיזית של התחייבות על ידי חתימה סמלית על אמנת ההתחייבות הכיתתית יחד עם חבריך לשולחן."
+    },
+    {
+        "num": 61, 
+        "theme": "Erreur & apprentissage", 
+        "quote": "Chaque erreur est un pas de plus vers la réussite.", 
+        "quote_he": "כל טעות היא עוד צעד בדרך להצלחה.",
+        "challenge_1_fr": "Écris une erreur que tu as faite aujourd'hui ou cette semaine et qui t'a permis de comprendre comment faire mieux.",
+        "challenge_1_he": "כתוב טעות שעשית היום או השבוע ושעזרה לך להבין איך לעשות טוב יותר.",
+        "challenge_2_fr": "Explique cette erreur à ton binôme de manière joyeuse en disant : « J'ai fait une super erreur, et j'ai appris que... ! »",
+        "challenge_2_he": "הסבר את הטעות הזו לבן הזוג שלך בצורה שמחה ואמור: \"עשיתי טעות נהדרת, ולמדתי ש...!\""
+    },
+    {
+        "num": 62, 
+        "theme": "Erreur & apprentissage", 
+        "quote": "Le droit de se tromper est le début de la liberté de créer.", 
+        "quote_he": "הזכות לטעות היא ההתחלה של החופש ליצור.",
+        "challenge_1_fr": "Dessine ou écris sur ton cahier une idée qui te semblait bizarre au début, mais qui s'est révélée très intéressante après coup.",
+        "challenge_1_he": "צייר או כתוב במחברת שלך רעיון שנראה לך מוזר בהתחלה, אך התברר כמעניין מאוד לאחר מכן.",
+        "challenge_2_fr": "Fais un dessin abstrait à deux stylos avec ton voisin de table sans jamais gommer, en transformant chaque raté en élément décoratif.",
+        "challenge_2_he": "צייר ציור מופשט בשני עטים עם השכן שלך לשולחן מבלי למחוק אף פעם, תוך הפיכת כל פספוס לאלמנט קישוטי."
+    },
+    {
+        "num": 63, 
+        "theme": "Erreur & apprentissage", 
+        "quote": "Ne crains pas l'erreur, c'est elle qui t'enseigne le chemin.", 
+        "quote_he": "אל תחשוש מהטעות, היא זו שמלמדת אותך את הדרך.",
+        "challenge_1_fr": "Pense à une matière ou un sport où tu faisais beaucoup d'erreurs au début, et écris comment tu t'es amélioré(e) avec le temps.",
+        "challenge_1_he": "חשוב על מקצוע או ספורט שבו עשית הרבה טעויות בהתחלה, וכתוב כיצד השתפרת עם הזמן.",
+        "challenge_2_fr": "Entraîne-toi en binôme à écrire un mot difficile les yeux fermés, puis observez en riant comment vos erreurs forment une écriture rigolote.",
+        "challenge_2_he": "התאמנו בזוגות על כתיבת מילה מורכבת בעיניים עצומות, ואז התבוננו בצחוק כיצד הטעויות שלכם יוצרות כתב משעשע."
     }
 ]
 

@@ -895,7 +895,7 @@ if st.session_state.current_card:
             st.rerun()
             
     with col_opt2:
-        if st.button("🏃‍♂️ Défi Action\n\nאתגר פעולה ושיתוף", use_container_width=True, type="primary" if st.session_state.selected_defi_type == 2 else "secondary"):
+        if st.button("🏃 Défi Action\n\nאתגר פעולה ושיתוף", use_container_width=True, type="primary" if st.session_state.selected_defi_type == 2 else "secondary"):
             st.session_state.selected_defi_type = 2
             st.session_state.reveal_challenge = False # Reset challenge flip on change
             st.rerun()
@@ -909,9 +909,9 @@ if st.session_state.current_card:
     else:
         selected_challenge_fr = card["challenge_2_fr"]
         selected_challenge_he = card["challenge_2_he"]
-        selected_type_fr = "🏃‍♂️ Défi Action & Partage"
+        selected_type_fr = "🏃 Défi Action & Partage"
         selected_type_he = "אתגר פעולה ושיתוף"
-        selected_type = "🏃‍♂️ Défi Action & Partage / אתגר פעולה ושיתוף"
+        selected_type = "🏃 Défi Action & Partage / אתגר פעולה ושיתוף"
         
     # Boîte d'affichage du défi sélectionné (bilingue adaptatif)
     if learning_mode == "🇫🇷 Français d'abord / צרפתית תחילה":

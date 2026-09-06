@@ -775,12 +775,12 @@ if "current_card" not in st.session_state:
     st.session_state.current_card = None
 
 # Interface Utilisateur principale
-st.write(f"<div class='main-title'>🌟 L'Éveil en Classe / התעוררות בכיתה 🌟</div>", unsafe_allow_html=True)
-st.write("<div class='subtitle'>Messages Inspirants Bilingues & Choix de Défis Interactifs</div>", unsafe_allow_html=True)
+st.write(f"""<div class='main-title'>🌟 L'Éveil en Classe 🌟<br><span style='font-size: 2.1rem; opacity: 0.95;'>🌟 התעוררות בכיתה 🌟</span></div>""", unsafe_allow_html=True)
+st.write("<div class='subtitle'>Messages Inspirants Bilingues & Choix de Défis Interactifs<br>מסרים מעוררי השראה דו-לשוניים ובחירת אתגרים אינטראקטיביים</div>", unsafe_allow_html=True)
 
 # Demander le prénom au départ de la séance
 if not st.session_state.user_name:
-    st.info("👋 Bonjour ! Entre ton prénom pour commencer l'aventure de l'Éveil en Classe. / שלום! אנא הכנס את שמך כדי להתחיל את המסע.")
+    st.info("👋 Bonjour ! Entre ton prénom pour commencer l'aventure de l'Éveil en Classe.\n\n👋 שלום! אנא הכנס את שמך כדי להתחיל את המסע.")
     cols_name = st.columns([3, 1])
     with cols_name[0]:
         name_input = st.text_input("Comment t'appelles-tu ?", placeholder="Ex: Lucas, Sofiane, Noam...", label_visibility="collapsed")
@@ -790,11 +790,11 @@ if not st.session_state.user_name:
                 st.session_state.user_name = name_input.strip()
                 st.rerun()
             else:
-                st.warning("N'oublie pas d'entrer ton prénom ! / אל תשכח להזין שם!")
+                st.warning("N'oublie pas d'entrer ton prénom !\n\nאל תשכח להזין שם!")
     st.stop()
 
 # Barre d'accueil personnalisée
-st.write(f"### 🎈 Bienvenue dans ton espace d'Éveil, **{st.session_state.user_name}** ! / ברוך הבא, **{st.session_state.user_name}** !")
+st.write(f"### 🎈 Bienvenue dans ton espace d'Éveil, **{st.session_state.user_name}** !\n### 🎈 ברוך הבא, **{st.session_state.user_name}** !")
 
 # --- COMPOSANT : AFFICHAGE DE LA CARTE ACTIVE EN FOCUS MODE ---
 if st.session_state.current_card:
@@ -810,7 +810,7 @@ if st.session_state.current_card:
     # Navigation et Sélecteur de Mode
     col_nav1, col_nav2 = st.columns([1, 1.5])
     with col_nav1:
-        if st.button("⬅️ Retour au menu / חזרה לתפריט", use_container_width=True):
+        if st.button("⬅️ Retour au menu\n\nחזרה לתפריט", use_container_width=True):
             st.session_state.current_card = None
             if "wheel_theme" in st.session_state:
                 del st.session_state["wheel_theme"]
@@ -819,7 +819,7 @@ if st.session_state.current_card:
     with col_nav2:
         learning_mode = st.radio(
             "Mode d'apprentissage :",
-            ["🇫🇷 Français d'abord / צרפתית תחילה", "🇮🇱 Hébreu d'abord / עברית תחילה"],
+            ["🇫🇷 Français d'abord\nצרפתית תחילה", "🇮🇱 Hébreu d'abord\nעברית תחילה"],
             index=0,
             horizontal=True,
             label_visibility="collapsed"
@@ -834,7 +834,7 @@ if st.session_state.current_card:
 
     # Structure visuelle de la carte en HTML/CSS
     # On décide quel texte afficher selon le mode d'apprentissage et si l'élève a révélé la carte
-    if learning_mode == "🇫🇷 Français d'abord / צרפתית תחילה":
+    if learning_mode == "🇫🇷 Français d'abord\nצרפתית תחילה":
         if not st.session_state.reveal_quote:
             quote_display_html = f'<div class="card-text">« {card["quote"]} »</div>'
         else:
@@ -858,35 +858,35 @@ if st.session_state.current_card:
         </span>
         {quote_display_html}
         <div class="card-footer-info">
-            Carte inspirante N°{card['num']} sur 60 / קלף השראה מס' {card['num']} מתוך 60
+            Carte inspirante N°{card['num']} sur 60<br>קלף השראה מס' {card['num']} מתוך 60
         </div>
     </div>
     """), unsafe_allow_html=True)
     
     # Bouton interactif pour retourner le message de la carte
-    if learning_mode == "🇫🇷 Français d'abord / צרפתית תחילה":
+    if learning_mode == "🇫🇷 Français d'abord\nצרפתית תחילה":
         if not st.session_state.reveal_quote:
-            if st.button("🔄 Retourner le message en Hébreu / לגלות את המסר בעברית", use_container_width=True, type="secondary"):
+            if st.button("🔄 Retourner le message en Hébreu\n\nלגלות את המסר בעברית", use_container_width=True, type="secondary"):
                 st.session_state.reveal_quote = True
                 st.rerun()
         else:
-            if st.button("🙈 Masquer l'Hébreu / להסתיר את המסר בעברית", use_container_width=True, type="secondary"):
+            if st.button("🙈 Masquer l'Hébreu\n\nלהסתיר את המסר בעברית", use_container_width=True, type="secondary"):
                 st.session_state.reveal_quote = False
                 st.rerun()
     else:  # Hébreu d'abord
         if not st.session_state.reveal_quote:
-            if st.button("🔄 Retourner le message en Français / לגלות את המסר בצרפתית", use_container_width=True, type="secondary"):
+            if st.button("🔄 Retourner le message en Français\n\nלגלות את המסר בצרפתית", use_container_width=True, type="secondary"):
                 st.session_state.reveal_quote = True
                 st.rerun()
         else:
-            if st.button("🙈 Masquer le Français / להסתיר את המסר בצרפתית", use_container_width=True, type="secondary"):
+            if st.button("🙈 Masquer le Français\n\nלהסתיר את המסר בצרפתית", use_container_width=True, type="secondary"):
                 st.session_state.reveal_quote = False
                 st.rerun()
                 
     st.markdown("<hr style='margin: 25px 0; border: 1px dashed #BDC3C7;'>", unsafe_allow_html=True)
     
     # Saisie du défi au choix - Plusieurs défis bilingues au choix !
-    st.markdown("<h3 style='text-align: center; font-family: Fredoka One, cursive;'>🎯 Choisis ton défi / בחר את האתגר שלך :</h3>", unsafe_allow_html=True)
+    st.markdown("<h3 style='text-align: center; font-family: Fredoka One, cursive;'>🎯 Choisis ton défi<br><span style='font-size: 1.5rem;'>בחר את האתגר שלך :</span></h3>", unsafe_allow_html=True)
     
     # Boutons ou Onglets locaux pour choisir le défi
     col_opt1, col_opt2 = st.columns(2)
@@ -920,7 +920,7 @@ if st.session_state.current_card:
         selected_type = "🏃 Défi Action & Partage / אתגר פעולה ושיתוף"
         
     # Boîte d'affichage du défi sélectionné (bilingue adaptatif)
-    if learning_mode == "🇫🇷 Français d'abord / צרפתית תחילה":
+    if learning_mode == "🇫🇷 Français d'abord\nצרפתית תחילה":
         if not st.session_state.reveal_challenge:
             challenge_display_html = clean_html(f'''
             <h4 style="margin: 0 0 10px 0; color: {info['color']}; font-family: 'Fredoka One', cursive;">🔥 {selected_type_fr} :</h4>
@@ -952,33 +952,33 @@ if st.session_state.current_card:
     """), unsafe_allow_html=True)
     
     # Bouton interactif pour retourner le défi
-    if learning_mode == "🇫🇷 Français d'abord / צרפתית תחילה":
+    if learning_mode == "🇫🇷 Français d'abord\nצרפתית תחילה":
         if not st.session_state.reveal_challenge:
-            if st.button("🔍 Traduire la consigne en Hébreu / לגלות את האתגר בעברית", use_container_width=True):
+            if st.button("🔍 Traduire la consigne en Hébreu\n\nלגלות את האתגר בעברית", use_container_width=True):
                 st.session_state.reveal_challenge = True
                 st.rerun()
         else:
-            if st.button("🙈 Masquer la traduction du défi / להסתיר את האתגר בעברית", use_container_width=True):
+            if st.button("🙈 Masquer la traduction du défi\n\nלהסתיר את האתגר בעברית", use_container_width=True):
                 st.session_state.reveal_challenge = False
                 st.rerun()
     else:  # Hébreu d'abord
         if not st.session_state.reveal_challenge:
-            if st.button("🔍 Traduire la consigne en Français / לגלות את האתגר בצרפתית", use_container_width=True):
+            if st.button("🔍 Traduire la consigne en Français\n\nלגלות את האתגר בצרפתית", use_container_width=True):
                 st.session_state.reveal_challenge = True
                 st.rerun()
         else:
-            if st.button("🙈 Masquer la traduction du défi / להסתיר את האתגר בצרפתית", use_container_width=True):
+            if st.button("🙈 Masquer la traduction du défi\n\nלהסתיר את האתגר בצרפתית", use_container_width=True):
                 st.session_state.reveal_challenge = False
                 st.rerun()
                 
     st.markdown("<div style='margin-top: 20px;'></div>", unsafe_allow_html=True)
     
     # Saisie de la réflexion bilingue
-    ref_input = st.text_area("Écris ta réponse ici en français ou en hébreu : / כתוב את תשובתך כאן בעברית או בצרפתית:", placeholder="Je pense que... / אני חושב ש...", height=120)
+    ref_input = st.text_area("Écris ta réponse ici en français ou en hébreu :\nכתוב את תשובתך כאן בעברית או בצרפתית:", placeholder="Je pense que... / אני חושב ש...", height=120)
     
-    if st.button("Valider mon Défi ! / אשרו את האתגר שלי! 🎉", use_container_width=True):
+    if st.button("Valider mon Défi ! 🎉\n\nאשרו את האתגר שלי! 🎉", use_container_width=True):
         if len(ref_input.strip()) < 3:
-            st.error("Ton défi est précieux ! Écris au moins un mot ou une petite phrase pour le valider. / אנא כתוב לפחות מילה או משפט קצר כדי לאשר.")
+            st.error("Ton défi est précieux ! Écris au moins un mot ou une petite phrase pour le valider.\n\nאנא כתוב לפחות מילה או משפט קצר כדי לאשר.")
         else:
             # Sauvegarde dans le journal bilingue
             new_entry = {
@@ -1007,10 +1007,10 @@ if st.session_state.current_card:
             if card["theme"] not in st.session_state.unlocked_badges:
                 st.session_state.unlocked_badges.append(card["theme"])
                 st.balloons()
-                st.success(f"🏆 MAGNIFIQUE ! Tu as relevé le défi et débloqué le badge **{info['badge_name']}** ! / כל הכבוד! פתחת את התג!")
+                st.success(f"🏆 MAGNIFIQUE ! Tu as relevé le défi et débloqué le badge **{info['badge_name']}** !\n\n🏆 כל הכבוד! פתחת את התג!")
             else:
                 st.balloons()
-                st.success("🎉 Félicitations ! Ta réflexion a bien été ajoutée à ton Journal de l'Éveil ! / כל הכבוד! תשובתך נשמרה ביומן.")
+                st.success("🎉 Félicitations ! Ta réflexion a bien été ajoutée à ton Journal de l'Éveil !\n\n🎉 כל הכבוד! תשובתך נשמרה ביומן.")
             
             # Réinitialiser la carte pour encourager un autre tour si l'élève le souhaite
             st.session_state.current_card = None
@@ -1024,26 +1024,26 @@ if st.session_state.current_card:
     st.stop()
 # Les Onglets de l'Application
 tab_game, tab_wheel, tab_badges, tab_journal, tab_teacher = st.tabs([
-    "🎲 Tirer une Carte / הגרל קלף", 
-    "🎡 La Roue de l'Éveil / גלגל ההתעוררות",
-    "🏆 Mes Badges / התגים שלי", 
-    "📓 Mon Journal / יומן אישי", 
-    "🏫 Espace Enseignant / מרחב מורה"
+    "🎲 Tirer une Carte\nהגרל קלף", 
+    "🎡 La Roue de l'Éveil\nגלגל ההתעוררות",
+    "🏆 Mes Badges\nהתגים שלי", 
+    "📓 Mon Journal\nיומן אישי", 
+    "🏫 Espace Enseignant\nמרחב מורה"
 ])
 
 # --- ONGLETS 1 : TIRER UNE CARTE ---
 with tab_game:
-    st.markdown("### Choisis ton mode de tirage : / בחר את סוג ההגרלה:")
+    st.markdown("### Choisis ton mode de tirage :\n### בחר את סוג ההגרלה :")
     
     cols_draw = st.columns(2)
     with cols_draw[0]:
-        st.markdown("**🍀 Le hasard complet / הגרלה אקראית**")
+        st.markdown("**🍀 Le hasard complet\n\nהגרלה אקראית**")
         if st.button("🎲 Tirer au sort une carte", use_container_width=True):
             st.session_state.current_card = random.choice(CARDS_DATA)
             st.rerun()
             
     with cols_draw[1]:
-        st.markdown("**🎨 Choisir par Thème / בחר לפי נושא**")
+        st.markdown("**🎨 Choisir par Thème\n\nבחר לפי נושא**")
         theme_selected = st.selectbox("Choisis ton thème favori :", list(THEMES_INFO.keys()), label_visibility="collapsed")
         if st.button("🔍 Tirer une carte de ce thème", use_container_width=True):
             theme_cards = [c for c in CARDS_DATA if c["theme"] == theme_selected]
@@ -1052,8 +1052,8 @@ with tab_game:
 
 # --- ONGLETS 2 : LA ROUE DE L'ÉVEIL ---
 with tab_wheel:
-    st.markdown("### 🎡 Lance la Roue Magique de l'Éveil ! / סובב את גלגל ההתעוררות!")
-    st.write("Fais tourner la roue virtuelle pour choisir ensemble le thème de discussion du jour en classe entière ! / סובבו את הגלגל כדי לבחור יחד את הנושא היומי לדיון כיתתי!")
+    st.markdown("### 🎡 Lance la Roue Magique de l'Éveil !\n### סובב את גלגל ההתעוררות !")
+    st.write("Fais tourner la roue virtuelle pour choisir ensemble le thème de discussion du jour en classe entière !\n\nסובבו את הגלגל כדי לבחור יחד את הנושא היומי לדיון כיתתי!")
     
     if st.button("🌀 Lancer la Roue de l'Éveil !", use_container_width=True):
         spin_placeholder = st.empty()
@@ -1079,16 +1079,16 @@ with tab_wheel:
         <div style="text-align: center; padding: 40px; background-color: {final_info['bg_light']}; border: 5px solid {final_info['color']}; border-radius: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.1);">
             <span style="font-size: 6rem;">🎉 {final_info['icon']} 🎉</span>
             <h1 style="color: {final_info['color']}; font-family: 'Fredoka One', cursive; margin-top: 20px;">{selected_theme}</h1>
-            <p style="color: #7F8C8D; font-size: 1.2rem;">Le thème parfait pour aujourd'hui ! / הנושא המושלם להיום!</p>
+            <p style="color: #7F8C8D; font-size: 1.2rem;">Le thème parfait pour aujourd'hui !<br>הנושא המושלם להיום!</p>
         </div>
         """, unsafe_allow_html=True)
         
-        st.success(f"✨ Le destin a parlé ! Nous allons travailler sur le thème **{selected_theme}** aujourd'hui. / הגורל קבע! היום נעבוד על נושא זה.")
+        st.success(f"✨ Le destin a parlé ! Nous allons travailler sur le thème **{selected_theme}** aujourd'hui.\n\n✨ הגורל קבע! היום נעבוד על נושא זה.")
         st.session_state.wheel_theme = selected_theme
 
     if "wheel_theme" in st.session_state:
         # Proposer directement de tirer une carte de ce thème
-        if st.button(f"👉 Découvrir une carte du thème : {st.session_state.wheel_theme}", use_container_width=True):
+        if st.button(f"👉 Découvrir une carte du thème : {st.session_state.wheel_theme}\n\n👉 גלה קלף בנושא: {st.session_state.wheel_theme}", use_container_width=True):
             theme_cards = [c for c in CARDS_DATA if c["theme"] == st.session_state.wheel_theme]
             st.session_state.current_card = random.choice(theme_cards)
             del st.session_state["wheel_theme"]
@@ -1096,7 +1096,7 @@ with tab_wheel:
 
 # --- ONGLETS 3 : TABLEAU DES BADGES ---
 with tab_badges:
-    st.markdown("### 🏆 Ton Tableau de Chasse des Badges de l'Éveil / לוח התגים שלי")
+    st.markdown("### 🏆 Ton Tableau de Chasse des Badges de l'Éveil\n### לוח התגים שלי")
     
     # Barre de progression
     unlocked_count = len(st.session_state.unlocked_badges)
@@ -1104,10 +1104,10 @@ with tab_badges:
     progress_ratio = unlocked_count / total_badges
     
     st.progress(progress_ratio)
-    st.write(f"🎯 **Progression / התקדמות :** {unlocked_count} sur {total_badges} badges débloqués / תגים פתוחים !")
+    st.write(f"🎯 **Progression :** {unlocked_count} sur {total_badges} badges débloqués\n\n🎯 **התקדמות :** {unlocked_count} מתוך {total_badges} תגים פתוחים !")
     
     if unlocked_count == total_badges:
-        st.success("👑 FANTASTIQUE ! Tu es devenu un(e) Maître de l'Éveil de la classe ! Tu as débloqué tous les badges ! / מדהים! הפכת למאסטר התעוררות כיתתי!")
+        st.success("👑 FANTASTIQUE ! Tu es devenu un(e) Maître de l'Éveil de la classe ! Tu as débloqué tous les badges !\n\n👑 מדהים! הפכת למאסטר התעוררות כיתתי!")
 
     # Grille des Badges
     st.write("---")
@@ -1120,7 +1120,7 @@ with tab_badges:
                 <div class="badge-icon">{info['icon']}</div>
                 <div class="badge-title" style="color: {info['color']};">{info['badge_name']}</div>
                 <div style="font-size: 0.75rem; color: #7F8C8D; margin-top: 5px;">{info['badge_desc']}</div>
-                <div style="font-size: 0.7rem; font-weight: bold; color: #2ECC71; margin-top: 5px;">Débloqué / פתוח !</div>
+                <div style="font-size: 0.7rem; font-weight: bold; color: #2ECC71; margin-top: 5px;">Débloqué<br>פתוח !</div>
             </div>
             """)
         else:
@@ -1128,7 +1128,7 @@ with tab_badges:
             <div class="badge-card" style="opacity: 0.5;">
                 <div class="badge-icon" style="filter: grayscale(100%);">🔒</div>
                 <div class="badge-title" style="color: #7F8C8D;">{theme_name}</div>
-                <div style="font-size: 0.75rem; color: #BDC3C7; margin-top: 5px;">Fais un défi de ce thème pour l'ouvrir. / בצע אתגר בנושא זה כדי לפתוח.</div>
+                <div style="font-size: 0.75rem; color: #BDC3C7; margin-top: 5px;">Fais un défi de ce thème pour l'ouvrir.<br>בצע אתגר בנושא זה כדי לפתוח.</div>
             </div>
             """)
     badge_html += "</div>"
@@ -1136,11 +1136,11 @@ with tab_badges:
 
 # --- ONGLETS 4 : MON JOURNAL D'ÉVEIL ---
 with tab_journal:
-    st.markdown("### 📓 Ton Journal Personnel des Réflexions / היומן האישי שלי")
-    st.write("Retrouve ici tout l'historique de tes pensées inspirantes et de tes actions de classe. / מצא כאן את ההיסטוריה המלאה של המחשבות והפעולות שלך.")
+    st.markdown("### 📓 Ton Journal Personnel des Réflexions\n### היומן האישי שלי")
+    st.write("Retrouve ici tout l'historique de tes pensées inspirantes et de tes actions de classe.\n\nמצא כאן את ההיסטוריה המלאה של המחשבות והפעולות שלך.")
     
     if not st.session_state.journal:
-        st.warning("Ton journal est vide pour le moment. Tire une carte et relève ton premier défi pour l'inaugurer ! 📝 / היומן שלך ריק כרגע. הגרל קלף ובצע אתגר ראשון!")
+        st.warning("Ton journal est vide pour le moment. Tire une carte et relève ton premier défi pour l'inaugurer ! 📝\n\nהיומן שלך ריק כרגע. הגרל קלף ובצע אתגר ראשון!")
     else:
         # Affichage chronologique inversé (les plus récents en premier)
         for i, entry in enumerate(reversed(st.session_state.journal)):
@@ -1184,7 +1184,7 @@ with tab_journal:
             journal_text += "-"*50 + "\n\n"
             
         st.download_button(
-            label="💾 Télécharger mon journal (.txt) / הורדת יומן",
+            label="💾 Télécharger mon journal (.txt)\n\nהורדת יומן",
             data=journal_text,
             file_name=f"journal_eveil_{st.session_state.user_name.lower()}.txt",
             mime="text/plain",
@@ -1193,23 +1193,23 @@ with tab_journal:
 
 # --- ONGLETS 5 : ESPACE ENSEIGNANT ---
 with tab_teacher:
-    st.markdown("### 🏫 Mode d'emploi et Usages Pédagogiques")
-    st.write("Chers enseignants, voici comment tirer le meilleur parti de cette application interactive avec vos élèves :")
+    st.markdown("### 🏫 Mode d'emploi et Usages Pédagogiques\n### מדריך למורה ושימושים פדגוגיים")
+    st.write("Chers enseignants, voici comment tirer le meilleur parti de cette application interactive avec vos élèves :\n\nמורים יקרים, להלן דרכים להפיק את המרב מהאפליקציה האינטראקטיבית avec התלמידים:")
     
-    st.markdown("""
-    #### 1. Le Rituel du Matin (Collectif)
-    * **Comment faire ?** Projetez l'application au tableau (TBI / VPI) à l'arrivée des élèves.
-    * **Le jeu :** Allez sur l'onglet **Roue de l'Éveil**, faites tourner la roue magique devant la classe pour décider du thème. 
-    * **L'échange :** Tirez la carte associée et lisez-la ensemble. Laissez les élèves s'exprimer oralement sur le défi proposé pendant 5 minutes. C'est une excellente activité de transition pour démarrer la journée dans le calme et la positivité.
+    st.markdown(clean_html("""
+    #### 1. Le Rituel du Matin (Collectif) / ריטואל בוקר כיתתי (קבוצתי)
+    * **Comment faire ? / כיצד עושים זאת?** Projetez l'application au tableau (TBI / VPI) à l'arrivée des élèves. / הקרינו את האפליקציה על הלוח עם הגעת התלמידים.
+    * **Le jeu : / המשחק:** Allez sur l'onglet **Roue de l'Éveil**, faites tourner la roue magique devant la classe pour décider du thème. / היכנסו ללשונית "גלגל ההתעוררות", סובבו את הגלגל הקסום מול הכיתה כדי לקבוע את הנושא.
+    * **L'échange : / השיח והשיתוף:** Tirez la carte associée et lisez-la ensemble. Laissez les élèves s'exprimer oralement sur le défi proposé pendant 5 minutes. C'est une excellente activité de transition pour démarrer la journée dans le calme et la positivité. / משכו את הקלף המתאים וקראו אותו יחד. אפשרו לתלמידים להתבטא בעל פה לגבי האתגר המוצע במשך 5 דקות. זוהי פעילות מעבר מצוינת להתחיל את היום ברוגע ובחיוביות.
     
-    #### 2. Travail en Autonomie (Individuel sur Tablette/iPad/Téléphone)
-    * **Comment faire ?** Créez un QR code menant au lien de l'application et affichez-le en classe.
-    * **Le jeu :** Les élèves l'utilisent individuellement pendant les temps d'autonomie, après avoir fini un travail, ou lors d'ateliers d'Éducation Socioculturelle (EMC).
-    * **Le suivi :** À la fin de la semaine, demandez-leur de télécharger leur fichier journal (via l'onglet **Mon Journal d'Éveil**) et de vous le partager sur votre espace de travail habituel (ENT, Classroom, messagerie de classe) ou de l'imprimer pour enrichir leur portfolio de développement personnel.
+    #### 2. Travail en Autonomie (Individuel sur Tablette/iPad) / עבודה עצמאית (אישית על טאבלט/אייפד)
+    * **Comment faire ? / כיצד עושים זאת?** Créez un QR code menant au lien de l'application et affichez-le en classe. / צרו קוד QR המוביל לקישור של האפליקציה והציגו אותו בכיתה.
+    * **Le jeu : / המשחק:** Les élèves l'utilisent individuellement pendant les temps d'autonomie, après avoir fini un travail, ou lors d'ateliers d'Éducation Socioculturelle (EMC). / התלמידים משתמשים בה באופן אישי בזמני עבודה עצמאית, לאחר סיום משימה, או במהלך סדנאות חינוך חברתי.
+    * **Le suivi : / המעקב והמשך העבודה:** À la fin de la semaine, demandez-leur de télécharger leur fichier journal (via l'onglet **Mon Journal d'Éveil**) et de vous le partager sur votre espace de travail habituel (ENT, Classroom, messagerie de classe) ou de l'imprimer pour enrichir leur portfolio de développement personnel. / בסוף השבוע, בקשו מהם להוריד את קובץ היומן שלהם (דרך לשונית "יומן אישי") ולשתף אותו איתכם במרחב הלמידה הרגיל (ENT, Classroom, הודעות כיתתיות) או להדפיס אותו כדי להעשיר את תיק העבודות (פורטפוליו) האישי שלהם.
     
-    #### 3. Débats Philosophiques et Ateliers de Langage
-    * **Comment faire ?** Utilisez les thèmes et citations comme inducteurs d'écriture ou de débats.
-    * **Exemple d'exercice :** Choisissez une carte difficile, par exemple le N°43 : *« Voir le positif ne veut pas dire ignorer le difficile »*. Demandez aux élèves d'écrire leur réponse à ce défi directement dans l'application, puis organisez un cercle de parole en classe pour confronter les idées.
-    """)
+    #### 3. Débats Philosophiques et Ateliers de Langage / דיונים פילוסופיים וסדנאות שפה
+    * **Comment faire ? / כיצד עושים זאת?** Utilisez les thèmes et citations comme inducteurs d'écriture ou de débats. / השתמשו בנושאים ובציטוטים כטריגרים לכתיבה או לדיון.
+    * **Exemple d'exercice : / דוגמה לתרגיל:** Choisissez une carte difficile, par exemple le N°43 : *« Voir le positif ne veut pas dire ignorer le difficile »*. Demandez aux élèves d'écrire leur réponse à ce défi directement dans l'application, puis organizez un cercle de parole en classe pour confronter les idées. / בחרו קלף מורכב, למשל מס' 43: "לראות את הצד החיובי לא אומר להתעלם מהקושי". בקשו מהתלמידים לכתוב את תשובתם לאתגר זה ישירות באפליקציה, ולאחר מכן ארגנו מעגל שיח בכיתה כדי להשוות ולשתף רעיונות.
+    """), unsafe_allow_html=True)
     
-    st.info("💡 **Conseil d'utilisation de la version en ligne :** Les données de cette application sont stockées localement dans le navigateur de l'appareil (Session State). Si l'élève ferme l'onglet, son journal se réinitialise. Pensez à lui rappeler d'exporter son journal à la fin d'une séance de travail si vous souhaitez l'évaluer !")
+    st.info("💡 **Conseil d'utilisation : / טיפ לשימוש באפליקציה המקוונת:** Les données de cette application sont stockées localement dans le navigateur de l'appareil (Session State). Si l'élève ferme l'onglet, son journal se réinitialise. Pensez à lui rappeler d'exporter son journal à la fin d'une séance de travail si vous souhaitez l'évaluer ! / הנתונים באפליקציה זו נשמרים באופן מקומי בדפדפן המכשיר. אם התלמיד יסגור את הלשונית, היומן שלו יתאפס. זכרו להזכיר לו לייצא את היומן בסוף השיעור אם ברצונכם להעריך את עבודתו!")

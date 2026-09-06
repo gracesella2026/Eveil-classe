@@ -795,30 +795,89 @@ if st.session_state.current_card:
     card = st.session_state.current_card
     info = THEMES_INFO[card["theme"]]
     
-    # Bouton retour en haut
-    if st.button("⬅️ Retour au menu principal / חזרה לתפריט הראשי", use_container_width=True):
-        st.session_state.current_card = None
-        if "wheel_theme" in st.session_state:
-            del st.session_state["wheel_theme"]
-        st.rerun()
+    # Auto-reset flip states if it's a new card
+    if st.session_state.get("last_card_num") != card["num"]:
+        st.session_state.reveal_quote = False
+        st.session_state.reveal_challenge = False
+        st.session_state.last_card_num = card["num"]
         
-    # Structure visuelle bilingue de la carte en HTML/CSS
+    # Navigation et Sélecteur de Mode
+    col_nav1, col_nav2 = st.columns([1, 1.5])
+    with col_nav1:
+        if st.button("⬅️ Retour au menu / חזרה לתפריט", use_container_width=True):
+            st.session_state.current_card = None
+            if "wheel_theme" in st.session_state:
+                del st.session_state["wheel_theme"]
+            st.rerun()
+            
+    with col_nav2:
+        learning_mode = st.radio(
+            "Mode d'apprentissage :",
+            ["🇫🇷 Français d'abord / צרפתית תחילה", "🇮🇱 Hébreu d'abord / עברית תחילה"],
+            index=0,
+            horizontal=True,
+            label_visibility="collapsed"
+        )
+        
+    if "last_learning_mode" not in st.session_state:
+        st.session_state.last_learning_mode = learning_mode
+    if st.session_state.last_learning_mode != learning_mode:
+        st.session_state.reveal_quote = False
+        st.session_state.reveal_challenge = False
+        st.session_state.last_learning_mode = learning_mode
+
+    # Structure visuelle de la carte en HTML/CSS
+    # On décide quel texte afficher selon le mode d'apprentissage et si l'élève a révélé la carte
+    if learning_mode == "🇫🇷 Français d'abord / צרפתית תחילה":
+        if not st.session_state.reveal_quote:
+            quote_display_html = f'<div class="card-text">« {card["quote"]} »</div>'
+        else:
+            quote_display_html = f'''
+            <div class="card-text">« {card["quote"]} »</div>
+            <div class="card-text-hebrew">"{card["quote_he"]}"</div>
+            '''
+    else:  # Hébreu d'abord
+        if not st.session_state.reveal_quote:
+            quote_display_html = f'<div class="card-text-hebrew">"{card["quote_he"]}"</div>'
+        else:
+            quote_display_html = f'''
+            <div class="card-text">« {card["quote"]} »</div>
+            <div class="card-text-hebrew">"{card["quote_he"]}"</div>
+            '''
+
     st.markdown(f"""
     <div class="card-container" style="border: 4px solid {info['color']}; background-color: {info['bg_light']};">
         <span class="card-header-badge" style="background-color: {info['color']}; color: white;">
             {info['icon']} {card['theme']}
         </span>
-        <div class="card-text">
-            « {card['quote']} »
-        </div>
-        <div class="card-text-hebrew">
-            "{card['quote_he']}"
-        </div>
+        {quote_display_html}
         <div class="card-footer-info">
             Carte inspirante N°{card['num']} sur 60 / קלף השראה מס' {card['num']} מתוך 60
         </div>
     </div>
     """, unsafe_allow_html=True)
+    
+    # Bouton interactif pour retourner le message de la carte
+    if learning_mode == "🇫🇷 Français d'abord / צרפתית תחילה":
+        if not st.session_state.reveal_quote:
+            if st.button("🔄 Retourner le message en Hébreu / לגלות את המסר בעברית", use_container_width=True, type="secondary"):
+                st.session_state.reveal_quote = True
+                st.rerun()
+        else:
+            if st.button("🙈 Masquer l'Hébreu / להסתיר את המסר בעברית", use_container_width=True, type="secondary"):
+                st.session_state.reveal_quote = False
+                st.rerun()
+    else:  # Hébreu d'abord
+        if not st.session_state.reveal_quote:
+            if st.button("🔄 Retourner le message en Français / לגלות את המסר בצרפתית", use_container_width=True, type="secondary"):
+                st.session_state.reveal_quote = True
+                st.rerun()
+        else:
+            if st.button("🙈 Masquer le Français / להסתיר את המסר בצרפתית", use_container_width=True, type="secondary"):
+                st.session_state.reveal_quote = False
+                st.rerun()
+                
+    st.markdown("<hr style='margin: 25px 0; border: 1px dashed #BDC3C7;'>", unsafe_allow_html=True)
     
     # Saisie du défi au choix - Plusieurs défis bilingues au choix !
     st.markdown("<h3 style='text-align: center; font-family: Fredoka One, cursive;'>🎯 Choisis ton défi / בחר את האתגר שלך :</h3>", unsafe_allow_html=True)
@@ -832,30 +891,81 @@ if st.session_state.current_card:
     with col_opt1:
         if st.button("📝 Défi Écriture\n\nאתגר כתיבה ומחשבה", use_container_width=True, type="primary" if st.session_state.selected_defi_type == 1 else "secondary"):
             st.session_state.selected_defi_type = 1
+            st.session_state.reveal_challenge = False # Reset challenge flip on change
             st.rerun()
             
     with col_opt2:
         if st.button("🏃‍♂️ Défi Action\n\nאתגר פעולה ושיתוף", use_container_width=True, type="primary" if st.session_state.selected_defi_type == 2 else "secondary"):
             st.session_state.selected_defi_type = 2
+            st.session_state.reveal_challenge = False # Reset challenge flip on change
             st.rerun()
             
     if st.session_state.selected_defi_type == 1:
         selected_challenge_fr = card["challenge_1_fr"]
         selected_challenge_he = card["challenge_1_he"]
+        selected_type_fr = "📝 Défi Écriture & Réflexion"
+        selected_type_he = "אתגר כתיבה ומחשבה"
         selected_type = "📝 Défi Écriture & Réflexion / אתגר כתיבה ומחשבה"
     else:
         selected_challenge_fr = card["challenge_2_fr"]
         selected_challenge_he = card["challenge_2_he"]
+        selected_type_fr = "🏃‍♂️ Défi Action & Partage"
+        selected_type_he = "אתגר פעולה ושיתוף"
         selected_type = "🏃‍♂️ Défi Action & Partage / אתגר פעולה ושיתוף"
         
-    # Boîte d'affichage du défi sélectionné
+    # Boîte d'affichage du défi sélectionné (bilingue adaptatif)
+    if learning_mode == "🇫🇷 Français d'abord / צרפתית תחילה":
+        if not st.session_state.reveal_challenge:
+            challenge_display_html = f'''
+            <h4 style="margin: 0 0 10px 0; color: {info['color']}; font-family: 'Fredoka One', cursive;">🔥 {selected_type_fr} :</h4>
+            <p style="margin: 0; font-size: 1.15rem; color: #2C3E50; font-weight: bold;">{selected_challenge_fr}</p>
+            '''
+        else:
+            challenge_display_html = f'''
+            <h4 style="margin: 0 0 10px 0; color: {info['color']}; font-family: 'Fredoka One', cursive;">🔥 {selected_type} :</h4>
+            <p style="margin: 0 0 12px 0; font-size: 1.15rem; color: #2C3E50; font-weight: bold;">{selected_challenge_fr}</p>
+            <p style="margin: 0; font-size: 1.15rem; color: #34495E; font-weight: bold; direction: rtl; text-align: right;">{selected_challenge_he}</p>
+            '''
+    else:  # Hébreu d'abord
+        if not st.session_state.reveal_challenge:
+            challenge_display_html = f'''
+            <h4 style="margin: 0 0 10px 0; color: {info['color']}; font-family: 'Fredoka One', cursive; direction: rtl; text-align: right;">🔥 {selected_type_he} :</h4>
+            <p style="margin: 0; font-size: 1.15rem; color: #34495E; font-weight: bold; direction: rtl; text-align: right;">{selected_challenge_he}</p>
+            '''
+        else:
+            challenge_display_html = f'''
+            <h4 style="margin: 0 0 10px 0; color: {info['color']}; font-family: 'Fredoka One', cursive;">🔥 {selected_type} :</h4>
+            <p style="margin: 0 0 12px 0; font-size: 1.15rem; color: #2C3E50; font-weight: bold;">{selected_challenge_fr}</p>
+            <p style="margin: 0; font-size: 1.15rem; color: #34495E; font-weight: bold; direction: rtl; text-align: right;">{selected_challenge_he}</p>
+            '''
+
     st.markdown(f"""
     <div class="challenge-box" style="border-left: 5px solid {info['color']};">
-        <h4 style="margin: 0 0 10px 0; color: {info['color']}; font-family: 'Fredoka One', cursive;">🔥 {selected_type} :</h4>
-        <p style="margin: 0 0 12px 0; font-size: 1.15rem; color: #2C3E50; font-weight: bold;">{selected_challenge_fr}</p>
-        <p style="margin: 0; font-size: 1.15rem; color: #34495E; font-weight: bold; direction: rtl; text-align: right;">{selected_challenge_he}</p>
+        {challenge_display_html}
     </div>
     """, unsafe_allow_html=True)
+    
+    # Bouton interactif pour retourner le défi
+    if learning_mode == "🇫🇷 Français d'abord / צרפתית תחילה":
+        if not st.session_state.reveal_challenge:
+            if st.button("🔍 Traduire la consigne en Hébreu / לגלות את האתגר בעברית", use_container_width=True):
+                st.session_state.reveal_challenge = True
+                st.rerun()
+        else:
+            if st.button("🙈 Masquer la traduction du défi / להסתיר את האתגר בעברית", use_container_width=True):
+                st.session_state.reveal_challenge = False
+                st.rerun()
+    else:  # Hébreu d'abord
+        if not st.session_state.reveal_challenge:
+            if st.button("🔍 Traduire la consigne en Français / לגלות את האתגר בצרפתית", use_container_width=True):
+                st.session_state.reveal_challenge = True
+                st.rerun()
+        else:
+            if st.button("🙈 Masquer la traduction du défi / להסתיר את האתגר בצרפתית", use_container_width=True):
+                st.session_state.reveal_challenge = False
+                st.rerun()
+                
+    st.markdown("<div style='margin-top: 20px;'></div>", unsafe_allow_html=True)
     
     # Saisie de la réflexion bilingue
     ref_input = st.text_area("Écris ta réponse ici en français ou en hébreu : / כתוב את תשובתך כאן בעברית או בצרפתית:", placeholder="Je pense que... / אני חושב ש...", height=120)
@@ -898,13 +1008,14 @@ if st.session_state.current_card:
             
             # Réinitialiser la carte pour encourager un autre tour si l'élève le souhaite
             st.session_state.current_card = None
+            st.session_state.reveal_quote = False
+            st.session_state.reveal_challenge = False
             if "wheel_theme" in st.session_state:
                 del st.session_state["wheel_theme"]
             time.sleep(1)
             st.rerun()
             
     st.stop()
-
 # Les Onglets de l'Application
 tab_game, tab_wheel, tab_badges, tab_journal, tab_teacher = st.tabs([
     "🎲 Tirer une Carte / הגרל קלף", 
